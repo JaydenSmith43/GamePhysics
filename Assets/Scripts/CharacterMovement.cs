@@ -55,7 +55,7 @@ public class CharacterMovement : MonoBehaviour
 		controller.Move(velocity * Time.deltaTime);
 
 		animator.SetFloat("Speed", move.magnitude * speed);
-		animator.SetFloat("YVelocity", velocity.y);
+		animator.SetFloat("VelocityY", velocity.y);
 		animator.SetBool("OnGround", groundedPlayer);
 	}
 
