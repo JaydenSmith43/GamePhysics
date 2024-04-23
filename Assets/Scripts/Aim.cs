@@ -8,6 +8,8 @@ public class Aim : MonoBehaviour
     [SerializeField] float speed = 3;
     [SerializeField] public float points = 0;
     [SerializeField] AudioSource audio;
+    [SerializeField] int yawLimit = 50;
+    [SerializeField] int pitchLimit = 50;
 
     Vector3 rotation = Vector3.zero;
     Vector2 prevAxis = Vector2.zero;
@@ -32,8 +34,11 @@ public class Aim : MonoBehaviour
         rotation.x += axis.x * speed;
         rotation.y += axis.y * speed;
 
+        rotation.x = Mathf.Clamp(rotation.x, -pitchLimit, pitchLimit); //remove for blockbuster aim
+        rotation.y = Mathf.Clamp(rotation.y, -yawLimit, yawLimit);
+
 		//rotation.x = Mathf.Clamp(rotation.x, -50, 50);
-		//rotation.y = Mathf.Clamp(rotation.y, -50, 50);
+		//rotation.y = Mathf.Clamp(rotation.y, -70, 70);
 
 		Quaternion qyaw = Quaternion.AngleAxis(rotation.y, Vector3.up);
         Quaternion qpitch = Quaternion.AngleAxis(rotation.x, Vector3.right);
@@ -47,23 +52,23 @@ public class Aim : MonoBehaviour
 			transform.RotateAround(target, Vector3.up, -Input.GetAxis("Horizontal") * 30 * Time.deltaTime);
             moving = true;
 		}
-        else
-        {
-			moving = false;
-			audio.volume = 0;
-            audio.Stop();
-            //audio.
-		}
+  //      else
+  //      {
+		//	moving = false;
+		//	audio.volume = 0;
+  //          audio.Stop();
+  //          //audio.
+		//}
 
-        if (moving)
-        {
-            if (!audio.isPlaying)
-            {
-				audio.Play();
-				audio.volume = 100;
-			}
+  //      if (moving)
+  //      {
+  //          if (!audio.isPlaying)
+  //          {
+		//		audio.Play();
+		//		audio.volume = 100;
+		//	}
 
-		}
+		//}
 		
 	}
 }
